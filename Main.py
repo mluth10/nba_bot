@@ -1,33 +1,44 @@
-import requests
-from bs4 import BeautifulSoup
+from nba_api.live.nba.endpoints import scoreboard
+from nba_api.live.nba.endpoints import boxscore
 import pandas as pd
-import tweepy
+import time
+from Game import Game
 
 def main():
-    print("hello")
+    active_games = []
+    while(True):
+        maintain_active_games(active_games)
+        check_games(active_games)
+        time.sleep(120) # 2 minutes
 
-def scrape():
-    html = requests.get("https://www.espn.com/nba/scoreboard").content
-    soup = BeautifulSoup(html, 'html.parser')
+def maintain_active_games(active_games):
+    games = scoreboard.ScoreBoard()
+    board = games.get_dict()
 
-    game_count = len(soup.find_all(class_="Scoreboard bg-clr-white flex flex-auto justify-between"))
-    ended_game_count = len(soup.find_all(class_="ScoreCell__Time ScoreboardScoreCell__Time h9 clr-gray-01"))
-    active_game_count = game_count - ended_game_count
+    all_game_boards = board['scoreboard']['games']
 
-    buttons = soup.find_all("a", class_="AnchorLink Button Button--sm Button--anchorLink Button--alt mb4 w-100 mr2")
+    for game_board in all_game_boards:
+        game = Game(game_board)
 
-    active_game_links = []
+        # fun if-else logic that might be necessary, unsure
+        if game in active_games:
+            # game in active_games
+            if not game.active():
+                active_games.remove(game)
+            else:
+                # update existant game
+                for old_game in active_games:
+                    if old_game == game:
+                        old_game.update(game.board)
+        else:
+            # game not in active_games
+            if game.active():
+                active_games.append(game)
 
-    counter = 0
-    for button in buttons:
-        if button.text == "Box Score" and counter < active_game_count:
-            counter += 1
-            active_game_links.append(button['href'])
+def check_games(active_games):
+    for game in active_games:
+        game.check()
 
-    # for link in active_game_links:
-    #     get_data_from_url(link)
-    
-    get_data_from_url(active_game_links[3])
 
 if __name__ == "__main__":
     main()

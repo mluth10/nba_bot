@@ -1,16 +1,27 @@
 import pandas as pd
+import nba_api
 import requests
+
 class Game:
-    first_team_players = []
-    second_team_players = []
 
-    def __init__(self, href):
-        self.html = requests.get("https://www.espn.com"+href).content
-        self.dataframes = pd.read_html(self.html)
-
+    def __init__(self, board):
+        self.board = board
+        self.game_id = board['gameId']
+        
     # override the == operator for Games
     def __eq__(self, obj):
-        return isinstance(obj, Game) and obj.first_team == self.first_team and obj.second_team == self.second_team
+        return isinstance(obj, Game) and obj.game_id == self.game_id
+
+    # override the != operator
+    def __ne__(self, obj):
+        return not self == obj
     
-    def update(self):
-        dataframes = pd.read_html(self.html)
+    def active(self):
+        return self.board['gameStatus'] == 2
+    
+    def update(self, board):
+        self.board = board
+    
+    def check():
+        # see if anything interesting is happening
+        print("jhelo")
