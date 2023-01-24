@@ -1,14 +1,14 @@
 import pandas as pd
 import nba_api
 import requests
-import GameOccurrenceTracker
+from GameOccurrenceManager import GameOccurrenceManager
 
 class Game:
 
     def __init__(self, board):
         self.board = board
         self.game_id = board['gameId']
-        self.tracker = GameOccurrenceTracker()
+        self.tracker = GameOccurrenceManager()
         
     # override the == operator for Games
     def __eq__(self, obj):
@@ -24,6 +24,6 @@ class Game:
     def update(self, board):
         self.board = board
     
-    def check():
+    def check(self):
         # see if anything interesting is happening
         print("jhelo")
