@@ -1,14 +1,32 @@
 import pandas as pd
 import nba_api
+from nba_api.live.nba.endpoints import boxscore
 import requests
-from GameOccurrenceManager import GameOccurrenceManager
+import Roster
+import Overtime
+import CloseGame
+import VeryCloseGame
 
 class Game:
 
     def __init__(self, board):
         self.board = board
         self.game_id = board['gameId']
-        self.tracker = GameOccurrenceManager()
+        self.box = boxscore.BoxScore(self.game_id)
+        #self.tracker = GameOccurrenceManager()
+
+        self.homeRoster = Roster(self.board, self.box, True)
+        self.awayRoster = Roster(self.board, self.box, False)
+
+        self.tracker = {}
+        self.tracker['overtime'] = False
+        self.tracker['close_game'] = False
+        self.tracker['very_close_game'] = False
+
+        self.occurrences = {}
+        self.occurrences['overtime'] = self.check_OT
+        self.occurrences['close_game'] = self.check_close_game
+        self.occurrences['very_close_game'] = self.check_very_close_game
         
     # override the == operator for Games
     def __eq__(self, obj):
@@ -23,7 +41,27 @@ class Game:
     
     def update(self, board):
         self.board = board
+        self.box = boxscore.BoxScore(self.game_id)
+        self.homeRoster.update(self.board, self.box)
+        self.awayRoster.update(self.board, self.box)
     
     def check(self):
-        # see if anything interesting is happening
-        print("jhelo")
+        # for the whole game
+        for key, value in self.tracker.items():
+            if not value:
+                self.tracker[key] = self.occurrences[key](self.board, self.box)
+        
+        self.homeRoster.check()
+        self.awayRoster.check()
+
+    def check_OT(self, board, box):
+        ot = Overtime()
+        return ot.check(board)
+    
+    def check_close_game(self, board, box):
+        close = CloseGame()
+        return close.check(board)
+
+    def check_very_close_game(self, board, box):
+        vc = VeryCloseGame()
+        return vc.check(board)
