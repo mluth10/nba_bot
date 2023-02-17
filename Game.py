@@ -49,19 +49,19 @@ class Game:
         # for the whole game
         for key, value in self.tracker.items():
             if not value:
-                self.tracker[key] = self.occurrences[key](self.board, self.box)
+                self.tracker[key] = self.occurrences[key]()
         
         self.homeRoster.check()
         self.awayRoster.check()
 
-    def check_OT(self, board, box):
+    def check_OT(self):
         ot = Overtime()
-        return ot.check(board)
+        return ot.check(self.board)
     
-    def check_close_game(self, board, box):
+    def check_close_game(self):
         close = CloseGame()
-        return close.check(board)
+        return close.check(self.board)
 
-    def check_very_close_game(self, board, box):
+    def check_very_close_game(self):
         vc = VeryCloseGame()
-        return vc.check(board)
+        return vc.check(self.board)
