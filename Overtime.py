@@ -5,6 +5,7 @@ class Overtime():
         self.tweeter = Tweeter()
 
     def check(self, board):
+        print("checking for overtime")
         happened = False
 
         if(board['period'] == 'OT'):

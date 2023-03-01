@@ -9,6 +9,7 @@ class TripleDouble():
         self.tweeter = Tweeter()
 
     def check(self, home, player_id, board, box):
+        
         happened = False
 
         home_or_away = 'homeTeam' if home else 'awayTeam'
@@ -29,6 +30,8 @@ class TripleDouble():
         for key in keys:
             if player['statistics'][key] >= 10:
                 stats[key] = player['statistics'][key]
+
+        print('checking for ' + player['name'] + ' triple double')
         
         if len(stats) >= 3:
             happened = True

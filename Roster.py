@@ -1,4 +1,4 @@
-import Player
+from Player import Player
 
 class Roster:
     def __init__(self, board, box, home):

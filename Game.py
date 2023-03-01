@@ -2,17 +2,17 @@ import pandas as pd
 import nba_api
 from nba_api.live.nba.endpoints import boxscore
 import requests
-import Roster
-import Overtime
-import CloseGame
-import VeryCloseGame
+from Roster import Roster
+from Overtime import Overtime
+from CloseGame import CloseGame
+from VeryCloseGame import VeryCloseGame
 
 class Game:
 
     def __init__(self, board):
         self.board = board
         self.game_id = board['gameId']
-        self.box = boxscore.BoxScore(self.game_id)
+        self.box = boxscore.BoxScore(self.game_id).game.get_dict()
         #self.tracker = GameOccurrenceManager()
 
         self.homeRoster = Roster(self.board, self.box, True)
@@ -25,6 +25,7 @@ class Game:
 
         self.occurrences = {}
         self.occurrences['overtime'] = self.check_OT
+        #self.occurrences['overtime'] = Overtime()
         self.occurrences['close_game'] = self.check_close_game
         self.occurrences['very_close_game'] = self.check_very_close_game
         

@@ -1,4 +1,4 @@
-import TripleDouble
+from TripleDouble import TripleDouble
 
 class Player:
     def __init__(self, home, player_id, board, box):
