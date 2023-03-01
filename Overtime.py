@@ -5,12 +5,15 @@ class Overtime():
         self.tweeter = Tweeter()
 
     def check(self, board, box):
-        print("checking for overtime")
-        happened = False
 
-        if(board['period'] == 'OT'):
-            happened = True
-            print('OT happening in game ' + board['gameCode'])
-            self.tweeter.tweet('OT happening in game ' + board['gameCode'])
+        if not (board['period'] == 'OT'):
+            return False
 
-        return happened
+        home_team = board['homeTeam']['teamName']
+        away_team = board['awayTeam']['teamName']
+
+        msg = f'The {home_team} {away_team} game is going to OT'
+
+        self.tweeter.tweet(msg)
+
+        return True

@@ -23,23 +23,24 @@ class VeryCloseGame():
         diff = abs(home_points - away_points)
 
 
-        if(board['period'] == 4 and seconds_in_quarter < 120 and diff <= 2):
-            happened = True
-            winTeam = ''
-            loseTeam = ''
-            if home_points >= away_points:
-                winTeam = board['homeTeam']['teamName']
-                loseTeam = board['awayTeam']['teamName']
-            else:
-                winTeam = board['awayTeam']['teamName']
-                loseTeam = board['homeTeam']['teamName']
-            
-            msg = ''
-            if diff != 0:
-                msg = "{winningTeam} beating {losingTeam} by {pts} with {minutes} minutes to go".format(winningTeam = winTeam, losingTeam = loseTeam, pts = diff, minutes=minutes_in_quarter)
-            else:
-                msg = "{winningTeam} and {losingTeam} tied with {minutes} minutes to go".format(winningTeam = winTeam, losingTeam = loseTeam, minutes=minutes_in_quarter)
-            
-            self.tweeter.tweet(msg)
+        if not (board['period'] == 4 and seconds_in_quarter < 120 and diff <= 2):
+            return False
+        
+        winTeam = ''
+        loseTeam = ''
+        if home_points >= away_points:
+            winTeam = board['homeTeam']['teamName']
+            loseTeam = board['awayTeam']['teamName']
+        else:
+            winTeam = board['awayTeam']['teamName']
+            loseTeam = board['homeTeam']['teamName']
+        
+        msg = ''
+        if diff != 0:
+            msg = "{winningTeam} beating {losingTeam} by {pts} with {minutes} minutes to go".format(winningTeam = winTeam, losingTeam = loseTeam, pts = diff, minutes=minutes_in_quarter)
+        else:
+            msg = "{winningTeam} and {losingTeam} tied with {minutes} minutes to go".format(winningTeam = winTeam, losingTeam = loseTeam, minutes=minutes_in_quarter)
+        
+        self.tweeter.tweet(msg)
 
-        return happened
+        return True

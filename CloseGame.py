@@ -6,7 +6,6 @@ class CloseGame():
         self.tweeter = Tweeter()
 
     def check(self, board, box):
-        happened = False
 
         times = re.findall('[0-9][0-9]', board['gameClock'])
         seconds_in_quarter = 60*int(times[0]) + int(times[1]) + int(times[2])/100
@@ -23,23 +22,24 @@ class CloseGame():
         diff = abs(home_points - away_points)
 
 
-        if(board['period'] == 4 and seconds_in_quarter < 300 and diff <= 5):
-            happened = True
-            winTeam = ''
-            loseTeam = ''
-            if home_points >= away_points:
-                winTeam = board['homeTeam']['teamName']
-                loseTeam = board['awayTeam']['teamName']
-            else:
-                winTeam = board['awayTeam']['teamName']
-                loseTeam = board['homeTeam']['teamName']
-            
-            msg = ''
-            if diff != 0:
-                msg = "{winningTeam} beating {losingTeam} by {pts} with {minutes} minutes to go".format(winningTeam = winTeam, losingTeam = loseTeam, pts = diff, minutes=minutes_in_quarter)
-            else:
-                msg = "{winningTeam} and {losingTeam} tied with {minutes} minutes to go".format(winningTeam = winTeam, losingTeam = loseTeam, minutes=minutes_in_quarter)
-            
-            self.tweeter.tweet(msg)
+        if not (board['period'] == 4 and seconds_in_quarter < 300 and diff <= 5):
+            return False
 
-        return happened
+        winTeam = ''
+        loseTeam = ''
+        if home_points >= away_points:
+            winTeam = board['homeTeam']['teamName']
+            loseTeam = board['awayTeam']['teamName']
+        else:
+            winTeam = board['awayTeam']['teamName']
+            loseTeam = board['homeTeam']['teamName']
+        
+        msg = ''
+        if diff != 0:
+            msg = "{winningTeam} beating {losingTeam} by {pts} with {minutes} minutes to go".format(winningTeam = winTeam, losingTeam = loseTeam, pts = diff, minutes=minutes_in_quarter)
+        else:
+            msg = "{winningTeam} and {losingTeam} tied with {minutes} minutes to go".format(winningTeam = winTeam, losingTeam = loseTeam, minutes=minutes_in_quarter)
+        
+        self.tweeter.tweet(msg)
+
+        return True
