@@ -5,7 +5,7 @@ class VeryCloseGame():
     def __init__(self):
         self.tweeter = Tweeter()
 
-    def check(self, board):
+    def check(self, board, box):
         happened = False
 
         times = re.findall('[0-9][0-9]', board['gameClock'])

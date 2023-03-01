@@ -4,7 +4,7 @@ class Overtime():
     def __init__(self):
         self.tweeter = Tweeter()
 
-    def check(self, board):
+    def check(self, board, box):
         print("checking for overtime")
         happened = False
 

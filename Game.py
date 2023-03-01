@@ -13,7 +13,6 @@ class Game:
         self.board = board
         self.game_id = board['gameId']
         self.box = boxscore.BoxScore(self.game_id).game.get_dict()
-        #self.tracker = GameOccurrenceManager()
 
         self.homeRoster = Roster(self.board, self.box, True)
         self.awayRoster = Roster(self.board, self.box, False)
@@ -24,10 +23,9 @@ class Game:
         self.tracker['very_close_game'] = False
 
         self.occurrences = {}
-        self.occurrences['overtime'] = self.check_OT
-        #self.occurrences['overtime'] = Overtime()
-        self.occurrences['close_game'] = self.check_close_game
-        self.occurrences['very_close_game'] = self.check_very_close_game
+        self.occurrences['overtime'] = Overtime()
+        self.occurrences['close_game'] = CloseGame()
+        self.occurrences['very_close_game'] = VeryCloseGame()
         
     # override the == operator for Games
     def __eq__(self, obj):
@@ -50,19 +48,19 @@ class Game:
         # for the whole game
         for key, value in self.tracker.items():
             if not value:
-                self.tracker[key] = self.occurrences[key]()
+                self.tracker[key] = self.occurrences[key].check(self.board, self.box)
         
         self.homeRoster.check()
         self.awayRoster.check()
 
-    def check_OT(self):
-        ot = Overtime()
-        return ot.check(self.board)
+    # def check_OT(self):
+    #     ot = Overtime()
+    #     return ot.check(self.board)
     
-    def check_close_game(self):
-        close = CloseGame()
-        return close.check(self.board)
+    # def check_close_game(self):
+    #     close = CloseGame()
+    #     return close.check(self.board)
 
-    def check_very_close_game(self):
-        vc = VeryCloseGame()
-        return vc.check(self.board)
+    # def check_very_close_game(self):
+    #     vc = VeryCloseGame()
+    #     return vc.check(self.board)
