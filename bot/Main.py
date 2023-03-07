@@ -33,7 +33,7 @@ def maintain_active_games(active_games):
         else:
             # game not in active_games
             if game.active():
-                game.update()
+                game.update(game.board)
                 active_games.append(game)
 
 def check_games(active_games):

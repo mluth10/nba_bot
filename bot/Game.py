@@ -14,6 +14,7 @@ class Game:
         self.game_id = board['gameId']
 
         if self.active():
+            self.box = boxscore.BoxScore(self.game_id).game.get_dict()
             self.homeRoster = Roster(self.board, self.box, True)
             self.awayRoster = Roster(self.board, self.box, False)
 
