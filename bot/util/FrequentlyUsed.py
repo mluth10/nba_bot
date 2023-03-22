@@ -1,2 +1,0 @@
-class FrequentlyUsed():
-    def winningTeamName

@@ -9,14 +9,15 @@ from VeryCloseGame import VeryCloseGame
 
 class Game:
 
-    def __init__(self, board):
+    def __init__(self, board, util):
         self.board = board
+        self.util = util
         self.game_id = board['gameId']
 
         if self.active():
             self.box = boxscore.BoxScore(self.game_id).game.get_dict()
-            self.homeRoster = Roster(self.board, self.box, True)
-            self.awayRoster = Roster(self.board, self.box, False)
+            self.homeRoster = Roster(self.board, self.box, self.util, True)
+            self.awayRoster = Roster(self.board, self.box, self.util, False)
 
         self.tracker = {}
         self.tracker['overtime'] = False
@@ -49,7 +50,7 @@ class Game:
         # for the whole game
         for key, value in self.tracker.items():
             if not value:
-                self.tracker[key] = self.occurrences[key].check(self.board, self.box)
+                self.tracker[key] = self.occurrences[key].check(self.board, self.box, self.util)
         
         self.homeRoster.check()
         self.awayRoster.check()

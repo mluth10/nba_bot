@@ -32,6 +32,7 @@ class Tweeter:
 
     def tweet(self, msg):
         self.api.update_status(msg)
+
         # for now just write to file
         with open('updates.txt', 'w') as f:
             f.write(msg)

@@ -1,12 +1,14 @@
 from TripleDouble import TripleDouble
 from DameTime import DameTime
+from Util import Util
 
 class Player:
-    def __init__(self, home, player_id, board, box):
+    def __init__(self, home, player_id, board, box, util):
         self.player_id = player_id
         self.box = box
         self.board = board
         self.home = home
+        self.util = util
 
         self.tracker = {}
         self.tracker['triple_double'] = False
@@ -23,4 +25,4 @@ class Player:
     def check(self):
         for key, value in self.tracker.items():
             if not value:
-                self.tracker[key] = self.occurrences[key].check(self.home, self.player_id, self.board, self.box)
+                self.tracker[key] = self.occurrences[key].check(self.home, self.player_id, self.board, self.box, self.util)
