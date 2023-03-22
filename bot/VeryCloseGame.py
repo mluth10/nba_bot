@@ -1,11 +1,12 @@
 from Tweeter import Tweeter
 import re
+from Util import Util
 
 class VeryCloseGame():
     def __init__(self):
         self.tweeter = Tweeter()
 
-    def check(self, board, box):
+    def check(self, board, box, util):
         happened = False
 
         times = re.findall('[0-9][0-9]', board['gameClock'])
@@ -41,6 +42,6 @@ class VeryCloseGame():
         else:
             msg = "{winningTeam} and {losingTeam} tied with {minutes} minutes to go".format(winningTeam = winTeam, losingTeam = loseTeam, minutes=minutes_in_quarter)
         
-        self.tweeter.tweet(msg)
+        util.tweet(msg)
 
         return True

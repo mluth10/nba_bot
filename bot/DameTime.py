@@ -7,7 +7,7 @@ class DameTime():
     def __init__(self):
         self.tweeter = Tweeter()
 
-    def check(self, home, player_id, board, box):
+    def check(self, home, player_id, board, box, util):
         happened = False
 
         home_or_away = 'homeTeam' if home else 'awayTeam'
@@ -27,6 +27,6 @@ class DameTime():
         
         msg = "It's Dame Time! Damian Lillard is currrently playing basketball."
 
-        self.tweeter.tweet(msg)
+        util.tweet(msg)
 
         return True

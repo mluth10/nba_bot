@@ -8,7 +8,7 @@ class TripleDouble():
     def __init__(self):
         self.tweeter = Tweeter()
 
-    def check(self, home, player_id, board, box):
+    def check(self, home, player_id, board, box, util):
         
         happened = False
 
@@ -48,6 +48,6 @@ class TripleDouble():
         msg = f'{player_name} just notched a triple double with {stat_1} {stat_1_name}, {stat_2} {stat_2_name}, and {stat_3} {stat_3_name}!'
         msg = msg.replace('reboundsTotal', 'rebounds')
 
-        self.tweeter.tweet(msg)
+        util.tweet(msg)
 
         return happened

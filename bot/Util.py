@@ -4,7 +4,7 @@ import tweepy
 
 logger = logging.getLogger()
 
-class Tweeter:
+class Util():
     def __init__(self):
         self.api = self.create_api()
     
@@ -16,7 +16,7 @@ class Tweeter:
 
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
-        api = tweepy.API(auth, wait_on_rate_limit=True)
+        api = tweepy.API(auth)
         try:
             api.verify_credentials()
         except Exception as e:
@@ -26,7 +26,9 @@ class Tweeter:
         return api
 
     def tweet(self, msg):
+        self.api.update_status(msg)
         
-        # for now just write to file
         with open('updates.txt', 'w') as f:
             f.write(msg)
+
+    

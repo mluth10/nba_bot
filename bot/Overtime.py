@@ -1,10 +1,11 @@
 from Tweeter import Tweeter
+from Util import Util
 
 class Overtime():
     def __init__(self):
         self.tweeter = Tweeter()
 
-    def check(self, board, box):
+    def check(self, board, box, util):
 
         if not (board['period'] == 'OT'):
             return False
@@ -14,6 +15,6 @@ class Overtime():
 
         msg = f'The {home_team} {away_team} game is going to OT'
 
-        self.tweeter.tweet(msg)
+        util.tweet(msg)
 
         return True
