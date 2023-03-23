@@ -1,10 +1,8 @@
 '''
-    Is it Dame Time?
+    Is the player getting career high points? Must be higher than 25.
 '''
-class DameTime():
+class CareerHigh():
     def check(self, home, player_id, board, box, util):
-        happened = False
-
         home_or_away = 'homeTeam' if home else 'awayTeam'
 
         roster = box[home_or_away]['players']
@@ -15,12 +13,16 @@ class DameTime():
                 player = guy
 
         if player is None:
-            return happened
-        
-        if player['name'] != 'Damian Lillard':
             return False
         
-        msg = "It's Dame Time! Damian Lillard is currrently playing basketball."
+        points = player['statistics']['points']
+
+        if points < 50:
+            return False
+        
+        player_name = player['name']
+        
+        msg = f'{player_name} just scored {points} points.'
 
         util.tweet(msg)
 

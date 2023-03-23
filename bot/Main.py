@@ -9,7 +9,6 @@ def main():
     util = Util()
     active_games = []
     print('running')
-    util.tweet("up and running")
     while(True):
         maintain_active_games(active_games, util)
         check_games(active_games)

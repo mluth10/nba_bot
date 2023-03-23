@@ -1,5 +1,7 @@
 from TripleDouble import TripleDouble
 from DameTime import DameTime
+from Player50 import Player50
+from PlayerHalf import PlayerHalf
 from Util import Util
 
 class Player:
@@ -13,10 +15,15 @@ class Player:
         self.tracker = {}
         self.tracker['triple_double'] = False
         self.tracker['dame_time'] = False
+        self.tracker['player_half'] = False
+        self.tracker['player_50'] = False
+        
 
         self.occurrences = {}
         self.occurrences['triple_double'] = TripleDouble()
         self.occurrences['dame_time'] = DameTime()
+        self.occurrences['player_half'] = PlayerHalf()
+        self.occurrences['player_50'] = Player50()
     
     def update(self, new_board, new_box):
         self.board = new_board

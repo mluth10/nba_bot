@@ -27,7 +27,6 @@ class Util():
 
     def tweet(self, msg):
         self.api.update_status(msg)
-        
         with open('updates.txt', 'w') as f:
             f.write(msg)
 

@@ -1,10 +1,6 @@
-from Tweeter import Tweeter
 from Util import Util
 
 class Overtime():
-    def __init__(self):
-        self.tweeter = Tweeter()
-
     def check(self, board, box, util):
 
         if not (board['period'] == 'OT'):

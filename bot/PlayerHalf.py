@@ -1,13 +1,8 @@
-from Tweeter import Tweeter
-
 '''
-    Is the player having a crazy first half. Check at helftime
+    Is the player having a crazy first half.
 '''
 class PlayerHalf():
-    def __init__(self):
-        self.tweeter = Tweeter()
-
-    def check(self, home, player_id, board, box):
+    def check(self, home, player_id, board, box, util):
         happened = False
 
         home_or_away = 'homeTeam' if home else 'awayTeam'
@@ -34,6 +29,6 @@ class PlayerHalf():
         
         msg = f'{player_name} has {points} in the second quarter!'
 
-        self.tweeter.tweet(msg)
+        util.tweet(msg)
 
         return happened

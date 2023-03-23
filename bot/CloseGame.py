@@ -1,13 +1,8 @@
-from Tweeter import Tweeter
 import re
 from Util import Util
 
 class CloseGame():
-    def __init__(self):
-        self.tweeter = Tweeter()
-
     def check(self, board, box, util):
-
         times = re.findall('[0-9][0-9]', board['gameClock'])
         seconds_in_quarter = 60*int(times[0]) + int(times[1]) + int(times[2])/100
         minutes_in_quarter = times[0]

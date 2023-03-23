@@ -1,12 +1,7 @@
-from Tweeter import Tweeter
-import re
-
 '''
     Has the player already achieved a triple double
 '''
 class TripleDouble():
-    def __init__(self):
-        self.tweeter = Tweeter()
 
     def check(self, home, player_id, board, box, util):
         
