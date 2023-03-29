@@ -33,13 +33,15 @@ class TripleDouble():
         else:
             return False
 
+        list = [(k, v) for k, v in stats.items()]
+
         player_name = player['name']
-        stat_1 = stats.items()[0][1]
-        stat_1_name = stats.items()[0][0]
-        stat_2 = stats.items()[1][1]
-        stat_2_name = stats.items()[1][0]
-        stat_3 = stats.items()[2][1]
-        stat_3_name = stats.items()[2][0]
+        stat_1 = list[0][1]
+        stat_1_name = list[0][0]
+        stat_2 = list[1][1]
+        stat_2_name = list[1][0]
+        stat_3 = list[2][1]
+        stat_3_name = list[2][0]
         msg = f'{player_name} just notched a triple double with {stat_1} {stat_1_name}, {stat_2} {stat_2_name}, and {stat_3} {stat_3_name}!'
         msg = msg.replace('reboundsTotal', 'rebounds')
 
