@@ -1,11 +1,10 @@
-import re
 from Util import Util
 
 class CloseGame():
     def check(self, board, box, util):
-        times = re.findall('[0-9][0-9]', board['gameClock'])
-        seconds_in_quarter = 60*int(times[0]) + int(times[1]) + int(times[2])/100
-        minutes_in_quarter = times[0]
+        seconds_in_quarter = util.time_left(board)
+        if seconds_in_quarter == -1:
+            return False
 
         home_points = 0
         for period in board['homeTeam']['periods']:

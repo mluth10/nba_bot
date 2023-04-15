@@ -26,7 +26,7 @@ class TripleDouble():
             if player['statistics'][key] >= 10:
                 stats[key] = player['statistics'][key]
 
-        print('checking for ' + player['name'] + ' triple double')
+        #print('checking for ' + player['name'] + ' triple double')
         
         if len(stats) >= 3:
             happened = True

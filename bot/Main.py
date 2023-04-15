@@ -10,7 +10,11 @@ def main():
     active_games = []
     print('running')
     while(True):
-        maintain_active_games(active_games, util)
+        try:
+            maintain_active_games(active_games, util)
+        except Exception as e:
+            util.tweet('The guy who made this bot is stupid.')
+            quit()
         check_games(active_games)
         time.sleep(120) # 2 minutes
 
